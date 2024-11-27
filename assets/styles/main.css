@@ -1,0 +1,111 @@
+.container {
+  display: flex;
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 300px;
+  background: linear-gradient(180deg, #3db489 0%, #2b805e 100%);
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 2px solid #ccc;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .logo {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.profile {
+  text-align: center;
+  margin-bottom: 30px;
+  color: white;
+}
+
+.profile p {
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.profile button {
+  background-color: #ffffff;
+  color: #3db489;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.profile button:hover {
+  background-color: #e5f4ea;
+}
+
+.menu {
+  flex-grow: 1;
+}
+
+.menu p {
+  font-weight: bold;
+  margin-top: 20px;
+  color: white;
+  font-size: 16px;
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
+  margin: 8px 0;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #e0f7ec;
+}
+
+.menu li:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.content {
+  flex: 1;
+  padding: 40px;
+  background-color: #f9f9f9;
+  overflow-y: auto;
+}
+
+.content h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.content p {
+  line-height: 1.6;
+  font-size: 16px;
+  color: #333;
+}
+
+.illustration {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.illustration img {
+  max-width: 600px;
+  width: 100%;
+  height: auto;
+}
