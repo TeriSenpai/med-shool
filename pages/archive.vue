@@ -152,7 +152,7 @@ export default {
 }
 
 .task-item button {
-  background-color: #19f348;
+  background-color: #00ff37;
   color: white;
   border: none;
   padding: 10px;
@@ -161,6 +161,6 @@ export default {
 }
 
 .task-item button:hover {
-  background-color: #1eeb39;
+  background-color: #00b31e;
 }
 </style>
