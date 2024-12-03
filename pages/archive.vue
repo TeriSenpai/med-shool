@@ -1,5 +1,5 @@
 <template>
-  <div class="archive-container">
+  <div class="forum-container">
     <aside class="sidebar">
       <div class="logo">Medical School</div>
       <div class="profile">
@@ -8,18 +8,17 @@
         <p>Ур. 1</p>
         <button>Редактировать</button>
       </div>
-
       <nav class="menu">
         <p>Информация</p>
         <ul>
-          <li @click="$router.push('/')">О школе</li>
+          <li>О школе</li>
           <li>Правила</li>
           <li>Форум</li>
           <li>Олимпиады</li>
         </ul>
         <p>Задачник</p>
         <ul>
-          <li @click="$router.push('/archive')">Архив задач</li>
+          <li>Архив задач</li>
           <li>Состояние системы</li>
           <li>Рейтинг</li>
           <li>Курсы</li>
@@ -34,34 +33,21 @@
       </nav>
     </aside>
     <main class="content">
-      <v-container>
-        <h1 class="text-h4 my-4">Архив задач</h1>
-        <p>
-          По своей сути рыбатекст является альтернативой традиционному lorem ipsum, который вызывает у некоторых людей недоумение при попытках прочитать рыбу текст.
-        </p>
-
-        <v-data-table
-          :headers="headers"
-          :items="tasks"
-          :items-per-page="10"
-          class="elevation-1 archive-table"
+      <header class="tasks-header">
+        <h1>Архив задач</h1>
+      </header>
+      <section class="tasks-list">
+        <div
+          v-for="(task, index) in tasks"
+          :key="index"
+          class="task-item"
         >
-          <template v-slot:top>
-            <v-toolbar flat>
-              <v-toolbar-title>Архив задач</v-toolbar-title>
-              <v-spacer></v-spacer>
-              <v-text-field
-                v-model="search"
-                label="Поиск"
-                single-line
-                hide-details
-                prepend-icon="mdi-magnify"
-                class="search-bar"
-              ></v-text-field>
-            </v-toolbar>
-          </template>
-        </v-data-table>
-      </v-container>
+          <h2>{{ task.title }}</h2>
+          <p><strong>Уровень сложности:</strong> {{ task.difficulty }}</p>
+          <p><strong>Описание:</strong> {{ task.description }}</p>
+          <button @click="viewTask(task.id)">Решить</button>
+        </div>
+      </section>
     </main>
   </div>
 </template>
@@ -70,42 +56,111 @@
 export default {
   data() {
     return {
-      search: "",
-      headers: [
-        { text: "Решено", value: "solved" },
-        { text: "ID", value: "id" },
-        { text: "Название задачи", value: "taskName" },
-        { text: "Тема", value: "topic" },
-        { text: "Есть?", value: "available" },
-        { text: "Сложность", value: "difficulty" },
-        { text: "Решаемость", value: "solvability" },
-        { text: "Принято", value: "accepted" },
-      ],
       tasks: [
-        { solved: "Да", id: 1, taskName: "Какое-то длинное название задачи", topic: "Какая-то длинная тема задачи", available: "Есть", difficulty: "1%", solvability: "99%", accepted: 1979907 },
-        { solved: "Нет", id: 2, taskName: "Название задачи", topic: "Тема задачи", available: "Нет", difficulty: "70%", solvability: "20%", accepted: 1476 },
-        { solved: "Да", id: 3, taskName: "Другое название задачи", topic: "Другая тема задачи", available: "Есть", difficulty: "1%", solvability: "99%", accepted: 1979907 },
-        { solved: "Да", id: 54, taskName: "Еще одна задача", topic: "Дополнительная тема", available: "Есть", difficulty: "10%", solvability: "85%", accepted: 305670 },
-        { solved: "Нет", id: 66, taskName: "Пример задачи", topic: "Еще один пример", available: "Нет", difficulty: "55%", solvability: "35%", accepted: 789 },
-        { solved: "Да", id: 76, taskName: "Сложная задача", topic: "Сложная тема", available: "Есть", difficulty: "15%", solvability: "92%", accepted: 100090 },
-        { solved: "Нет", id: 98, taskName: "Легкая задача", topic: "Легкая тема", available: "Нет", difficulty: "80%", solvability: "25%", accepted: 1560 },
-        { solved: "Да", id: 141, taskName: "Длинное название задачи", topic: "Сложная задача", available: "Есть", difficulty: "2%", solvability: "95%", accepted: 190000 },
-        { solved: "Нет", id: 162, taskName: "Еще задача", topic: "Тематика задачи", available: "Нет", difficulty: "75%", solvability: "15%", accepted: 890 },
-        { solved: "Да", id: 39, taskName: "Короткое название", topic: "Легкая тема", available: "Есть", difficulty: "10%", solvability: "89%", accepted: 50000 },
-        ...Array(90).fill().map((_, index) => ({
-          solved: index % 2 === 0 ? "Да" : "Нет",
-          id: index + 200,
-          taskName: `Задача ${index + 1}`,
-          topic: `Тема ${index + 1}`,
-          available: index % 3 === 0 ? "Есть" : "Нет",
-          difficulty: `${(index % 10) * 10}%`,
-          solvability: `${100 - (index % 20)}%`,
-          accepted: Math.floor(Math.random() * 10000) + 1000,
-        })),
+        {
+          id: 1,
+          title: "Рассчитать дозу лекарства для пациента",
+          difficulty: "Средний",
+          description:
+            "Пациент весит 70 кг. Дозировка составляет 10 мг/кг. Рассчитайте общую дозу лекарства для однократного приема.",
+        },
+        {
+          id: 2,
+          title: "Определить диагноз по симптомам",
+          difficulty: "Сложный",
+          description:
+            "Пациент жалуется на боль в животе, тошноту, лихорадку. Какие исследования вы порекомендуете для диагностики?",
+        },
+        {
+          id: 3,
+          title: "Анализ лабораторных данных",
+          difficulty: "Легкий",
+          description:
+            "В анализе крови пациента обнаружено повышенное количество лейкоцитов. Что это может означать?",
+        },
+        {
+          id: 4,
+          title: "Построить график изменения температуры",
+          difficulty: "Средний",
+          description:
+            "Температура пациента в течение суток менялась следующим образом: 37.1°C (утро), 38.2°C (день), 37.5°C (вечер). Постройте график.",
+        },
+        {
+          id: 5,
+          title: "Составить план лечения",
+          difficulty: "Сложный",
+          description:
+            "Пациент с диагнозом 'пневмония'. Опишите последовательность действий врача, включая медикаментозное лечение и рекомендации.",
+        },
       ],
     };
+  },
+  methods: {
+    viewTask(taskId) {
+      alert(`Открыта задача с ID: ${taskId}`);
+    },
   },
 };
 </script>
 
-<style src="@/assets/styles/archive.css"></style>
+<style scoped>
+.forum-container {
+  display: flex;
+}
+
+.sidebar {
+  width: 250px;
+  padding: 20px;
+  background-color: #f7f7f7;
+}
+
+.menu p {
+  font-weight: bold;
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.menu li {
+  margin: 10px 0;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.tasks-header {
+  margin-bottom: 20px;
+}
+
+.task-item {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.task-item h2 {
+  margin: 0 0 10px;
+}
+
+.task-item p {
+  margin: 5px 0;
+}
+
+.task-item button {
+  background-color: #19f348;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.task-item button:hover {
+  background-color: #1eeb39;
+}
+</style>
